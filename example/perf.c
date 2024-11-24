@@ -1,3 +1,4 @@
+// clang-format off
 #include "perf.h"
 #include <stdio.h>
 #include <string.h>
@@ -5,7 +6,7 @@
 #ifdef NANOVG_GLEW
 #  include <GL/glew.h>
 #endif
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 #include "nanovg.h"
 
 #ifdef _MSC_VER
@@ -41,12 +42,15 @@ void initGPUTimer(GPUtimer* timer)
 
 void startGPUTimer(GPUtimer* timer)
 {
+#if 0
 	if (!timer->supported)
 		return;
 	glBeginQuery(GL_TIME_ELAPSED, timer->queries[timer->cur % GPU_QUERY_COUNT] );
 	timer->cur++;
+#endif
 }
 
+#if 0
 int stopGPUTimer(GPUtimer* timer, float* times, int maxTimes)
 {
 	NVG_NOTUSED(times);
@@ -72,6 +76,7 @@ int stopGPUTimer(GPUtimer* timer, float* times, int maxTimes)
 	}
 	return n;
 }
+#endif
 
 
 void initGraph(PerfGraph* fps, int style, const char* name)
@@ -184,3 +189,5 @@ void renderGraph(NVGcontext* vg, float x, float y, PerfGraph* fps)
 		nvgText(vg, x+w-3,y+3, str, NULL);
 	}
 }
+
+// clang-format on
